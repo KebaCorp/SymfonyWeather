@@ -44,4 +44,13 @@ interface CityRepositoryInterface
      * @return City
      */
     public function update(City $city): City;
+
+    /**
+     * Delete City.
+     *
+     * @param City $city
+     *
+     * @return bool
+     */
+    public function delete(City $city): bool;
 }

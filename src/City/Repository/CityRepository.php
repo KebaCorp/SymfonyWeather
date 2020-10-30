@@ -74,4 +74,15 @@ class CityRepository extends ServiceEntityRepository implements CityRepositoryIn
 
         return $city;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(City $city): bool
+    {
+        $this->manager->remove($city);
+        $this->manager->flush();
+
+        return true;
+    }
 }

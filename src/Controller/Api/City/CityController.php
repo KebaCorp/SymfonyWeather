@@ -35,6 +35,18 @@ class CityController extends AbstractController
     /**
      * Create City.
      *
+     * @Route("/all", methods={"GET"})
+     *
+     * @return JsonResponse
+     */
+    public function all(): JsonResponse
+    {
+        return $this->json($this->cityService->all());
+    }
+
+    /**
+     * Create City.
+     *
      * @Route("/create", methods={"POST"})
      * @param Request $request
      *
@@ -44,8 +56,36 @@ class CityController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $city = $this->cityService->create($data['name']);
+        return $this->json($this->cityService->create($data['name']));
+    }
 
-        return $this->json($city);
+    /**
+     * Update City.
+     *
+     * @Route("/update", methods={"POST"})
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        return $this->json($this->cityService->update($data['id'], $data['name']));
+    }
+
+    /**
+     * Delete City.
+     *
+     * @Route("/delete", methods={"POST"})
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function delete(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        return $this->json($this->cityService->delete($data['id']));
     }
 }

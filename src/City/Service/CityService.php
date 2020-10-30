@@ -4,7 +4,6 @@ namespace App\City\Service;
 
 use App\City\Model\City;
 use App\City\Repository\CityRepositoryInterface;
-use Exception;
 
 /**
  * Class SecretService.
@@ -32,14 +31,44 @@ class CityService implements CityServiceInterface
 
     /**
      * {@inheritDoc}
-     * @throws Exception
+     */
+    public function all(): array
+    {
+        return $this->repository->all();
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function create(string $name): City
     {
         $city = new City($name);
-
         $this->repository->save($city);
 
         return $city;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function update(int $id, string $name): City
+    {
+        $city = $this->repository->one($id);
+        $city->setName($name);
+
+        $this->repository->update($city);
+
+        return $city;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(int $id): bool
+    {
+        $city = $this->repository->one($id);
+        $this->repository->delete($city);
+
+        return true;
     }
 }
