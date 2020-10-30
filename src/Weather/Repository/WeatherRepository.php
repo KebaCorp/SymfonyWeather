@@ -74,4 +74,48 @@ class WeatherRepository extends ServiceEntityRepository implements WeatherReposi
 
         return $weather;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function weeklyStatistics(int $cityId, string $from, string $to): array
+    {
+        $queryString = <<<PG
+            SELECT avg(w.temperature) AS avgTemperature,
+                date_trunc('week', w.date) AS weekFirstDay
+            FROM Weather:Weather w
+            WHERE w.cityId = :cityId
+            AND w.date BETWEEN :from AND :to
+            GROUP BY weekFirstDay
+        PG;
+
+        return $this->manager
+            ->createQuery($queryString)
+            ->setParameter('cityId', $cityId)
+            ->setParameter('from', $from)
+            ->setParameter('to', $to)
+            ->getResult();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function monthlyStatistics(int $cityId, string $from, string $to): array
+    {
+        $queryString = <<<PG
+            SELECT avg(w.temperature) AS avgTemperature,
+                date_trunc('month', w.date) AS monthFirstDay
+            FROM Weather:Weather w
+            WHERE w.cityId = :cityId
+            AND w.date BETWEEN :from AND :to
+            GROUP BY monthFirstDay
+        PG;
+
+        return $this->manager
+            ->createQuery($queryString)
+            ->setParameter('cityId', $cityId)
+            ->setParameter('from', $from)
+            ->setParameter('to', $to)
+            ->getResult();
+    }
 }

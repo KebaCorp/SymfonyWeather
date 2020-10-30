@@ -22,3 +22,6 @@ doctrine:
         dir: '%kernel.project_dir%/src/Weather/Model'
         prefix: 'App\Weather\Model'
         alias: Weather
+    dql:
+      datetime_functions:
+        date_trunc: DoctrineExtensions\Query\Postgresql\DateTrunc

@@ -42,4 +42,20 @@ class WeatherService implements WeatherServiceInterface
 
         return $weather;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function weeklyStatistics(int $cityId, string $from, string $to): array
+    {
+        return $this->repository->weeklyStatistics($cityId, $from, $to);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function monthlyStatistics(int $cityId, string $from, string $to): array
+    {
+        return $this->repository->monthlyStatistics($cityId, $from, $to);
+    }
 }

@@ -48,4 +48,38 @@ class WeatherController extends AbstractController
 
         return $this->json($weather);
     }
+
+    /**
+     * Get weekly statistics by city and period.
+     *
+     * @Route("/weekly-statistics", methods={"GET"})
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function weeklyStatistics(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $weather = $this->weatherService->weeklyStatistics($data['cityId'], $data['from'], $data['to']);
+
+        return $this->json($weather);
+    }
+
+    /**
+     * Get monthly statistics by city and period.
+     *
+     * @Route("/monthly-statistics", methods={"GET"})
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function monthlyStatistics(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $weather = $this->weatherService->monthlyStatistics($data['cityId'], $data['from'], $data['to']);
+
+        return $this->json($weather);
+    }
 }
