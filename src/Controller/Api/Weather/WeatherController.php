@@ -155,9 +155,11 @@ class WeatherController extends AbstractController
      */
     public function monthlyStatistics(Request $request): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-
-        $weather = $this->weatherService->monthlyStatistics($data['cityId'], $data['from'], $data['to']);
+        $weather = $this->weatherService->monthlyStatistics(
+            $request->query->get('cityId'),
+            $request->query->get('from'),
+            $request->query->get('to'),
+        );
 
         return $this->json($weather);
     }

@@ -3,6 +3,7 @@
 namespace App\Controller\Api\City;
 
 use App\City\Service\CityServiceInterface;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,9 +34,13 @@ class CityController extends AbstractController
     }
 
     /**
-     * Create City.
+     * Get all Cities.
      *
      * @Route("/all", methods={"GET"})
+     *
+     * @OA\Get(
+     *      tags={"city"}
+     * )
      *
      * @return JsonResponse
      */
@@ -48,6 +53,20 @@ class CityController extends AbstractController
      * Create City.
      *
      * @Route("/create", methods={"POST"})
+     *
+     * @OA\Post(
+     *     tags={"city"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="name",type="string",example="Moscow")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Ок")
+     * )
+     *
      * @param Request $request
      *
      * @return JsonResponse
@@ -63,6 +82,21 @@ class CityController extends AbstractController
      * Update City.
      *
      * @Route("/update", methods={"POST"})
+     *
+     * @OA\Post(
+     *     tags={"city"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="id",type="integer",example=1),
+     *                  @OA\Property(property="name",type="string",example="Moscow's new name")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Ок")
+     * )
+     *
      * @param Request $request
      *
      * @return JsonResponse
@@ -78,6 +112,20 @@ class CityController extends AbstractController
      * Delete City.
      *
      * @Route("/delete", methods={"POST"})
+     *
+     * @OA\Post(
+     *     tags={"city"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="id",type="integer",example=1)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Ок")
+     * )
+     *
      * @param Request $request
      *
      * @return JsonResponse
