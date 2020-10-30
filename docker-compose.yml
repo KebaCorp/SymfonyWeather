@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+
+  php-fpm:
+    build: ./docker/php
+    volumes:
+      - ${APP_ROOT_PATH}:/var/www/html/
+    working_dir: ${PHP_FPM_WORKING_DIR}
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - ${APP_PORT}:80
+      - 443:443
+    volumes:
+      - ./docker/nginx/core:/etc/nginx/conf.d
+      - ./docker/nginx/logs:/var/log/nginx/
+      - ./docker/nginx/html:/usr/share/nginx/html/
+      - ${APP_ROOT_PATH}:/var/www/html/
+    links:
+      - php-fpm
+    depends_on:
+      - php-fpm
+
+  postgres:
+    image: sameersbn/postgresql:latest
+    environment:
+      - DB_USER=${PG_USERNAME}
+      - DB_PASS=${PG_PASSWORD}
+      - DEBUG=false
+      - DB_NAME=${PG_DATABASE}
+    volumes:
+      - ./docker/databases/postgresql:/var/lib/postgresql
+    ports:
+      - ${PG_PORT}:5432
+    restart: unless-stopped
