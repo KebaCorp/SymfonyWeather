@@ -14,11 +14,11 @@ interface WeatherServiceInterface
     /**
      * Create Weather.
      *
-     * @param string $cityId
+     * @param int    $cityId
      * @param string $date
      * @param float  $temperature
      *
      * @return Weather
      */
-    public function create(string $cityId, string $date, float $temperature): Weather;
+    public function create(int $cityId, string $date, float $temperature): Weather;
 }

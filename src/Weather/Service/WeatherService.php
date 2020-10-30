@@ -34,12 +34,12 @@ class WeatherService implements WeatherServiceInterface
      * {@inheritDoc}
      * @throws Exception
      */
-    public function create(string $cityId, string $date, float $temperature): Weather
+    public function create(int $cityId, string $date, float $temperature): Weather
     {
-        $secret = new Weather($cityId, $date, $temperature);
+        $weather = new Weather($cityId, $date, $temperature);
 
-        $this->repository->save($secret);
+        $this->repository->save($weather);
 
-        return $secret;
+        return $weather;
     }
 }

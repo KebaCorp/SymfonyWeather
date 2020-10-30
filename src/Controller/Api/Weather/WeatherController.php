@@ -20,16 +20,16 @@ class WeatherController extends AbstractController
      *
      * @var WeatherServiceInterface
      */
-    private WeatherServiceInterface $secretService;
+    private WeatherServiceInterface $weatherService;
 
     /**
      * WeatherController constructor.
      *
-     * @param WeatherServiceInterface $secretService
+     * @param WeatherServiceInterface $weatherService
      */
-    public function __construct(WeatherServiceInterface $secretService)
+    public function __construct(WeatherServiceInterface $weatherService)
     {
-        $this->secretService = $secretService;
+        $this->weatherService = $weatherService;
     }
 
     /**
@@ -44,7 +44,7 @@ class WeatherController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $weather = $this->secretService->create($data['cityId'], $data['date'], $data['temperature']);
+        $weather = $this->weatherService->create($data['cityId'], $data['date'], $data['temperature']);
 
         return $this->json($weather);
     }

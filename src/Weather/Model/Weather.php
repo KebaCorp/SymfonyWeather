@@ -20,20 +20,20 @@ class Weather
     /**
      * ObjectId.
      *
-     * @var string
+     * @var int
      * @ORM\Id()
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue()
      */
-    protected string $id;
+    protected int $id;
 
     /**
      * City ID.
      *
-     * @var string
+     * @var int
      * @ORM\Column(type="integer")
      */
-    protected string $cityId;
+    protected int $cityId;
 
     /**
      * Weather date.
@@ -54,13 +54,13 @@ class Weather
     /**
      * Weather constructor.
      *
-     * @param string $cityId
+     * @param int    $cityId
      * @param string $date
      * @param float  $temperature
      *
      * @throws Exception
      */
-    public function __construct(string $cityId, string $date, float $temperature)
+    public function __construct(int $cityId, string $date, float $temperature)
     {
         $this->cityId = $cityId;
         $this->date = new DateTime($date);
@@ -68,33 +68,33 @@ class Weather
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
+     * @param int $id
      */
-    public function setId(string $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCityId(): string
+    public function getCityId(): int
     {
         return $this->cityId;
     }
 
     /**
-     * @param string $cityId
+     * @param int $cityId
      */
-    public function setCityId(string $cityId): void
+    public function setCityId(int $cityId): void
     {
         $this->cityId = $cityId;
     }
