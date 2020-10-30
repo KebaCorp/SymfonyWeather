@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201030090548 extends AbstractMigration
+final class Version20201030170224 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -21,7 +21,9 @@ final class Version20201030090548 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE city_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE weather_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE city (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE weather (id INT NOT NULL, city_id INT NOT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, temperature DOUBLE PRECISION NOT NULL, PRIMARY KEY(id))');
     }
 
     public function down(Schema $schema) : void
@@ -29,6 +31,8 @@ final class Version20201030090548 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP SEQUENCE city_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE weather_id_seq CASCADE');
         $this->addSql('DROP TABLE city');
+        $this->addSql('DROP TABLE weather');
     }
 }

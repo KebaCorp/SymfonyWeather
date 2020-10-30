@@ -7,6 +7,8 @@ services:
     volumes:
       - ${APP_ROOT_PATH}:/var/www/html/
     working_dir: ${PHP_FPM_WORKING_DIR}
+    depends_on:
+      - postgres
 
   nginx:
     image: nginx:latest

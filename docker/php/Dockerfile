@@ -54,4 +54,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 # Php.ini
 ADD php.ini /usr/local/etc/php
 
-CMD ["php-fpm"]
+# Entrypoint
+ADD ./bin/docker-entrypoint.sh /usr/local/bin/
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \
+    && ln -s /usr/local/bin/docker-entrypoint.sh /
+ENTRYPOINT ["docker-entrypoint.sh"]
